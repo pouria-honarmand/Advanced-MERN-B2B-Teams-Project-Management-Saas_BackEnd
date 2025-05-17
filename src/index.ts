@@ -22,11 +22,21 @@ import projectRoutes from "./routes/project.route";
 import taskRoutes from "./routes/task.route";
 
 const app = express();
+
 const BASE_PATH = config.BASE_PATH;
 
 app.use(express.json());
 
 app.use(express.urlencoded({ extended: true }));
+// ✅ CORS must come early
+app.use(cors({
+  origin: config.FRONTEND_ORIGIN,
+  credentials: true,
+}));
+app.options("*", cors({
+  origin: config.FRONTEND_ORIGIN,
+  credentials: true,
+}));
 
 // app.use(
 //   session({
@@ -59,12 +69,7 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use(
-  cors({
-    origin: config.FRONTEND_ORIGIN,
-    credentials: true,
-  })
-);
+
 app.use((err: any, req: Request, res: Response, next: NextFunction) => {
   const statusCode = err.statusCode || 500;
   const message = err.message || "Internal Server Error";
