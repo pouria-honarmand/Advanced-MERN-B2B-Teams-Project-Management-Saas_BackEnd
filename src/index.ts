@@ -53,15 +53,16 @@ app.use(
     secret: config.SESSION_SECRET!,
     resave: false,
     saveUninitialized: false,
-    cookie: {
-      httpOnly: true,
-      secure: config.NODE_ENV === "production",
-      maxAge: parseInt(process.env.SESSION_EXPIRES_IN || "86400000"), // 1 day
-    },
     store: MongoStore.create({
       mongoUrl: config.MONGO_URI,
       collectionName: "sessions",
     }),
+    cookie: {
+      httpOnly: true,
+      secure: true, // ✅ Render uses HTTPS
+      sameSite: "none", // ✅ Must be 'none' for cross-origin cookies
+      maxAge: parseInt(process.env.SESSION_EXPIRES_IN || "86400000"),
+    },
   })
 );
 
