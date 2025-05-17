@@ -189,6 +189,12 @@ export const registerUserService = async (body: {
   }
 };
 
+export const findUserByIdService = async (userId:string )=> {
+  const user =await UserModel.findById(userId,{
+    password:false,
+  });
+  return user||null;
+};
 
 export const verifyUserService = async ({
   email,
