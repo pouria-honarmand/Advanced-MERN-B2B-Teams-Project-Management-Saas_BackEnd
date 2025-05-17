@@ -37,6 +37,12 @@ app.options("*", cors({
   origin: config.FRONTEND_ORIGIN,
   credentials: true,
 }));
+// ✅ Then add this middleware immediately after CORS
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", config.FRONTEND_ORIGIN);
+  res.header("Access-Control-Allow-Credentials", "true");
+  next();
+});
 
 // app.use(
 //   session({
