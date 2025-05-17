@@ -17,7 +17,7 @@ export const googleLoginCallback = asyncHandler(
       return res.redirect(`${config.FRONTEND_ORIGIN}?status=failure`);
     }
 
-      return res.redirect(`${config.FRONTEND_ORIGIN}?status=success&access_token=${jwt}&current_workspace=${current_workspace}`);
+      return res.redirect(`${config.FRONTEND_ORIGIN}?status=success&access_token=${jwt}&current_workspace=${currentWorkspace}`);
   }
 );
 
