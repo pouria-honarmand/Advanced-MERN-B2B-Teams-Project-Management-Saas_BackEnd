@@ -14,10 +14,10 @@ export const googleLoginCallback = asyncHandler(
     const currentWorkspace = req.user?.currentWorkspace;
 
     if (!jwt) {
-      return res.redirect(`${config.FRONTEND_ORIGIN}?status=failure`);
+      return res.redirect(`${config.FRONTEND_GOOGLE_CALLBACK_URL}?status=failure`);
     }
 
-      return res.redirect(`${config.FRONTEND_ORIGIN}?status=success&access_token=${jwt}&current_workspace=${currentWorkspace}`);
+      return res.redirect(`${config.FRONTEND_GOOGLE_CALLBACK_URL}?status=success&access_token=${jwt}&current_workspace=${currentWorkspace}`);
   }
 );
 
